@@ -51,24 +51,30 @@ export const CrossWordView = () => {
   const onCorrect = useCallback((direction, number, answer) => {
     console.log(answer);
     respuestasJugador.push(answer);
+    setrespuestasJugador(respuestasJugador);
+    console.log(respuestasJugador);
+  }, []);
+
+  const onInCorrect = useCallback((direction, number, answer) => {
+    console.log(answer);
+    const index = respuestasJugador.findIndex((dato) => dato === answer);
+    if (index >= 0) {
+      delete respuestasJugador.splice(index, 1);
+    }
+    // console.log(index);
+    setrespuestasJugador(respuestasJugador);
+    console.log(respuestasJugador);
+  }, []);
+
+  const saveData = () => {
     const respSinRepetir = respuestasJugador.filter(
       (item, index) => respuestasCorrectas.indexOf(item) === index
     );
     setrespuestasJugador(respSinRepetir.sort());
+    console.log('respuetas correctas=> ', respuestasJugador.length);
     console.log(respuestasJugador);
-    // addMessage(`onCellChange: "${row}", "${col}", "${char}"`);
-  }, []);
+  };
 
-  const onIncorrect = useCallback((direction, number, answer) => {
-    console.log(answer);
-    // respuestasJugador.push(answer);
-    // const respSinRepetir = respuestasJugador.filter(
-    //   (item, index) => respuestasCorrectas.indexOf(item) === index
-    // );
-    // setrespuestasJugador(respSinRepetir.sort());
-    // console.log(respuestasJugador);
-    // addMessage(`onCellChange: "${row}", "${col}", "${char}"`);
-  }, []);
   return (
     <Layout title='Resuelve el Crucigrama'>
       <Grid
@@ -86,9 +92,7 @@ export const CrossWordView = () => {
             <Crossword
               data={data}
               onCorrect={onCorrect}
-              onAnswerIncorrect={onIncorrect}
-              // onCellChange={onCellChange}
-              // onCellChange={onCellChange}
+              onAnswerIncorrect={onInCorrect}
             />
           </div>
         </Grid>
@@ -100,7 +104,7 @@ export const CrossWordView = () => {
         >
           <Button
             // disabled={isAuthenticate}
-            // onClick={handleSubmit(handleLogin)}
+            onClick={saveData}
             color='secondary'
             variant='contained'
             fullWidth
