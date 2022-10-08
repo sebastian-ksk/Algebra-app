@@ -6,7 +6,7 @@ export const RegisterView = () => {
   const edades = ['12', '13', '14', '15', '16', '17', '18'];
   const grados = ['Octavo', 'Noveno', 'Decimo', 'Once'];
   return (
-    <Layout>
+    <Layout title='Registro de Estudiante'>
       <Grid
         sx={{ marginTop: 8 }}
         container
@@ -17,7 +17,6 @@ export const RegisterView = () => {
           item
           xs={6}
           sx={{ mt: 2 }}
-          spacing={3}
         >
           <form
 
