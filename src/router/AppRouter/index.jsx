@@ -8,9 +8,11 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route
-        // path={'/'}
-        // element={<RegisterView />}
         path={'/'}
+        element={<RegisterView />}
+      />
+      <Route
+        path={'/crucigrama'}
         element={<CrossWordView />}
       />
     </Routes>

@@ -1,10 +1,41 @@
-import { Button, Grid, MenuItem, Stack, TextField } from '@mui/material';
+import { Alert, Button, Grid, MenuItem, Stack, TextField } from '@mui/material';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { RegistrarEstudiante } from '../../redux/slices/resgistro/funciones';
 import { Layout } from './Layout';
 
 export const RegisterView = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { nombre, apellido, edad, grado } = useSelector(
+    (state) => state.registro
+  );
+
   const edades = ['12', '13', '14', '15', '16', '17', '18'];
   const grados = ['Octavo', 'Noveno', 'Decimo', 'Once'];
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      nombre: nombre || '',
+      apellido: apellido || '',
+      edad: edad || '',
+      grado: grado || '',
+    },
+  });
+
+  const handleRegister = (e) => {
+    const { nombre, apellido, edad, grado } = e;
+    dispatch(RegistrarEstudiante(nombre, apellido, edad, grado));
+    navigate('/crucigrama');
+  };
+
   return (
     <Layout title='Registro de Estudiante'>
       <Grid
@@ -18,29 +49,25 @@ export const RegisterView = () => {
           xs={6}
           sx={{ mt: 2 }}
         >
-          <form
-
-          // onSubmit={handleSubmit(handleLogin)}
-          >
+          <form onSubmit={handleSubmit(handleRegister)}>
             <TextField
-              // {...register('email', {
-              //   required: 'Email is required',
-              //   pattern: {
-              //     value:
-              //       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              //     message: 'Please enter a valid email',
-              //   },
-              // })}
+              {...register('nombre', {
+                required: 'Ingrese un nombre Valido',
+              })}
               id='standard-basic'
               variant='standard'
               label='Nombre'
               type='text'
               placeholder='Tu nombre'
+              defaultValue={nombre}
               fullWidth
             />
             <br />
             <br />
             <TextField
+              {...register('apellido', {
+                required: 'Ingrese un nombre Valido',
+              })}
               id='standard-basic'
               variant='standard'
               label='Apellido'
@@ -54,9 +81,9 @@ export const RegisterView = () => {
               fullWidth
               variant='standard'
               // value={direction.country}
-              // {...register('country', {
-              //   required: 'country is required',
-              // })}
+              {...register('edad', {
+                required: 'Elija una edad',
+              })}
               select // tell TextField to render select
               label='Edad'
               // defaultValue={countrys[defaultIndexValue.country]}
@@ -77,10 +104,9 @@ export const RegisterView = () => {
             <TextField
               fullWidth
               variant='standard'
-              // value={direction.country}
-              // {...register('country', {
-              //   required: 'country is required',
-              // })}
+              {...register('grado', {
+                required: 'Elija El Grado que esta cursando',
+              })}
               select // tell TextField to render select
               label='Grado'
               // defaultValue={countrys[defaultIndexValue.country]}
@@ -99,19 +125,25 @@ export const RegisterView = () => {
 
             <br />
             <br />
-            {/* <Stack direction='column'>
-              {errors.email && (
-                <Alert severity='error'>{errors.email.message}</Alert>
+            <Stack direction='column'>
+              {errors.nombre && (
+                <Alert severity='error'>{errors.nombre.message}</Alert>
               )}
-              {errors.password && (
-                <Alert severity='error'>{errors.password.message}</Alert>
+              {errors.apellido && (
+                <Alert severity='error'>{errors.apellido.message}</Alert>
               )}
-            </Stack> */}
+              {errors.edad && (
+                <Alert severity='error'>{errors.edad.message}</Alert>
+              )}
+              {errors.grado && (
+                <Alert severity='error'>{errors.grado.message}</Alert>
+              )}
+            </Stack>
             <br />
             <br />
             <Button
               // disabled={isAuthenticate}
-              // onClick={handleSubmit(handleLogin)}
+              onClick={handleSubmit(handleRegister)}
               color='secondary'
               variant='contained'
               fullWidth
