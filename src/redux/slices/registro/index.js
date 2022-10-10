@@ -11,7 +11,7 @@ export const registroSlice = createSlice({
     grado: '',
   },
   reducers: {
-    reinit: (state /* action */) => {
+    reinitRegistro: (state /* action */) => {
       state = { nombre: '', apellido: '', edad: '', grado: '' };
     },
     hacerRegistro: (state, action) => {
@@ -26,4 +26,4 @@ export const registroSlice = createSlice({
   },
 });
 // Action creators are generated for each case reducer function
-export const { reinit, hacerRegistro } = registroSlice.actions;
+export const { reinitRegistro, hacerRegistro } = registroSlice.actions;

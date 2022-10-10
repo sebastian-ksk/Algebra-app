@@ -1,9 +1,14 @@
 import { Button, Grid } from '@mui/material';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Layout } from '../RegisterView/Layout';
+import { Layout } from '../GeneralLayout/Layout';
 import Crossword from '@jaredreisinger/react-crossword';
+import { useDispatch } from 'react-redux';
+import { registrarRespuestas } from '../../redux/slices/crucigrama';
+import { useNavigate } from 'react-router-dom';
 
 export const CrossWordView = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const data = {
     across: {
       1: {
@@ -83,16 +88,19 @@ export const CrossWordView = () => {
     [respuestasJugador]
   );
 
-  const onInCorrect = useCallback((direction, number, answer) => {
-    console.log(answer);
-    const index = respuestasJugador.findIndex((dato) => dato === answer);
-    if (index >= 0) {
-      delete respuestasJugador.splice(index, 1);
-    }
-    // console.log(index);
-    setrespuestasJugador(respuestasJugador);
-    console.log(respuestasJugador);
-  }, []);
+  const onInCorrect = useCallback(
+    (direction, number, answer) => {
+      console.log(answer);
+      const index = respuestasJugador.findIndex((dato) => dato === answer);
+      if (index >= 0) {
+        delete respuestasJugador.splice(index, 1);
+      }
+      // console.log(index);
+      setrespuestasJugador(respuestasJugador);
+      console.log(respuestasJugador);
+    },
+    [respuestasJugador]
+  );
 
   const saveData = () => {
     const respSinRepetir = respuestasJugador.filter(
@@ -101,6 +109,15 @@ export const CrossWordView = () => {
     setrespuestasJugador(respSinRepetir.sort());
     console.log('respuetas correctas=> ', respuestasJugador.length);
     console.log(respuestasJugador);
+
+    dispatch(
+      registrarRespuestas({
+        numero: respuestasJugador.length,
+        respuestas: [...respuestasJugador],
+      })
+    );
+
+    navigate('/final');
   };
 
   return (

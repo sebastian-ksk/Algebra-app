@@ -1,6 +1,6 @@
 import { AppBar, Box, Grid, Toolbar, Typography } from '@mui/material';
 import React from 'react';
-
+import Logo from '../../../../../images/cedhulogo.png';
 export const NavBar = ({ title = 'titulo' }) => {
   return (
     <AppBar
@@ -13,15 +13,19 @@ export const NavBar = ({ title = 'titulo' }) => {
         <Grid
           container
           direction='row'
-          justifyContent='center'
+          justifyContent='space-between'
           alignItems='center'
         >
+          <Typography variant='h4'> {title}</Typography>
+
           <Box
             sx={{
-              height: 64,
+              height: 50,
             }}
+            component='img'
+            alt='ITPeople'
+            src={Logo}
           />
-          <Typography variant='h4'> {title}</Typography>
         </Grid>
       </Toolbar>
     </AppBar>

@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { RegistrarEstudiante } from '../../redux/slices/resgistro/funciones';
-import { Layout } from './Layout';
+import { RegistrarEstudiante } from '../../redux/slices/registro/funciones';
+import { Layout } from '../GeneralLayout/Layout';
 
 export const RegisterView = () => {
   const dispatch = useDispatch();
