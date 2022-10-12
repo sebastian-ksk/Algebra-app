@@ -1,6 +1,5 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { ConsCarrousell } from "./styles";
 export const Carrousel = ({ children }) => {
     const responsive = {
         desktop: {
@@ -20,7 +19,7 @@ export const Carrousel = ({ children }) => {
         },
     };
     return (
-        <ConsCarrousell>
+        <>
             <Carousel
                 swipeable={true}
                 draggable={true}
@@ -40,6 +39,6 @@ export const Carrousel = ({ children }) => {
             >
                 {children}
             </Carousel>
-        </ConsCarrousell>
+        </>
     );
 };
