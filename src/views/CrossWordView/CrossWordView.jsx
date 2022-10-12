@@ -117,7 +117,7 @@ export const CrossWordView = () => {
       })
     );
 
-    navigate('/final');
+    navigate('/ImagesDesc');
   };
 
   return (
@@ -150,7 +150,7 @@ export const CrossWordView = () => {
           <Button
             // disabled={isAuthenticate}
             onClick={saveData}
-            color='secondary'
+            color='success'
             variant='contained'
             fullWidth
           >

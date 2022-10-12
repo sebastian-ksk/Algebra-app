@@ -144,7 +144,7 @@ export const RegisterView = () => {
             <Button
               // disabled={isAuthenticate}
               onClick={handleSubmit(handleRegister)}
-              color='secondary'
+              color='success'
               variant='contained'
               fullWidth
             >
